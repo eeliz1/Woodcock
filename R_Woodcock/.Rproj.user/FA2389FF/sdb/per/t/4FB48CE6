@@ -1,0 +1,17 @@
+{
+    "contents" : "#Example Code for Lisa\nlibrary(plyr)\n\n#Set working directory\nsetwd(\"C:\\Users\\Elisa\\Documents\\Woodcock\\R_Woodcock\\\")\n\n#this tells you what files are in the working directory folder\nfilenames=list.files()\n\n#This combines all the files you created together into a object called \ncomb.files\ncomb.files=ldply(filenames, read.csv)\n\n#this writes all the combined files into a single file called comb_woodcock\nwrite.csv(comb.files, \n          \"C:\\Users\\Elisa\\Woodcock\\R_Woodcock\\comb_woodcock.csv\")\n\n#This creates a new data frame for you to work on.\nx=comb.files\n\n#this creates new variables for the metrics you need to edit via division\n## note it has to be x$name = x$oldname/divisor\nx$Density_40=x$Density/40\n\n\n#this is a piece of summary test code for you to start building off of.\nmy.out=ddply(x, .(BandNmbr, Date_utilized, SamplePos), summarise,\n             BasalArea_xbar=mean(Basal_Area),\n             sd_Basal_Area=sd(Basal_Area),\n             mean_Canopy=mean(Canopy),\n             sd_Canopy=sd(Canopy),\n             mean_Litter=mean(Litter),\n             sd_Litter=sd(Litter)\n)\nmy.out\n#colnames(my.out)=c(\"BandNmbr\", \"Date_utilized\", \"Sample_Pos\", \"Mean\", \n\"SD\", \"Max\")\n#my.out\n#\n#\n#\nxx=x\nsummary(aov(xx$Litter~xx$SamplePos))\nsummary(aov(xx$Herbac~xx$SamplePos))\nsummary(aov(xx$Shrub~xx$SamplePos))\nsummary(aov(xx$Tree~xx$SamplePos))\nsummary(aov(xx$Bare_ground~xx$SamplePos))\nsummary(aov(xx$Density~xx$SamplePos))\naov(xx$Litter~xx$SamplePos)",
+    "created" : 1468955123510.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "753279537",
+    "id" : "4FB48CE6",
+    "lastKnownWriteTime" : 1468955430,
+    "path" : "~/Woodcock/R_Woodcock/R_Woodcock.Rproj",
+    "project_path" : "R_Woodcock.Rproj",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "text"
+}

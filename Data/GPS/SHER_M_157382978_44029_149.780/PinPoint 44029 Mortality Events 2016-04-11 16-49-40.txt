@@ -1,0 +1,9 @@
+            GMT Date GMT Time            GMT Date GMT Time
+          dd/MM/yyyy hh:mm:ss          dd/MM/yyyy hh:mm:ss
+----------------------------------------------------------
+Mortality 08/01/2016 21:52:47
+Mortality 08/01/2016 21:52:47 Canceled 09/01/2016 19:47:47
+Mortality 10/01/2016 06:37:28
+Mortality 10/01/2016 06:37:28 Canceled 11/01/2016 20:57:25
+Mortality 12/01/2016 01:02:25
+Mortality 12/01/2016 01:02:25 Canceled 12/01/2016 18:32:25

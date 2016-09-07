@@ -1,0 +1,145 @@
+---
+title: "Woodcock_Update_Sept_2016"
+author: "Lisa"
+date: "Generated Tuesday, August 30, 2016"
+output: html_document
+---
+Table 1: MCP Areas 
+
+
+```{r, echo=FALSE}
+library(plyr)
+library(xtable)
+library(sp)
+library(geosphere)
+y = read.csv("C:/Users/Elisa/Documents/Woodcock/Data/MCP_area_2.csv")
+
+#head(y)
+#is.recursive(y)
+
+##this creates x, a table with all areas by site and band number
+#y$Day.Night <- NULL
+y$Veg..Y.N. <- NULL
+y$X <- NULL
+#y
+y = rename(y, c("Band.."="Band_Nmbr", "Area..ha."="Area_ha"))
+
+##removes N/A
+om <- with(y, (Area_ha=="N/A"))
+df <-y[!om,]
+
+##converts decimal ha values to numeric
+df$Area_ha = as.numeric(paste(df$Area))
+
+df$Area_m = df$Area*1000
+
+df[,4:5] <- round(df[,4:5], 2)
+
+df
+
+Mean_MCP_Area_ha = mean(df$Area_ha)
+
+cat(paste("Mean MCP Area =", round(Mean_MCP_Area_ha,2), "ha", sep=" " ))
+
+```
+
+
+
+Table i. Means of vegetation measurements by within MCP and within Buffer.  Density is vegetation density, as measured with a cover board.  Canopy is canopy cover, as measured with a densiometer.  The remainder of the values denote the ground cover classes (in percentages).
+
+```{r, echo=FALSE}
+##, results='asis'
+library(plyr)
+
+setwd("C:/Users/Elisa/Documents/Woodcock/R_Woodcock/Veg_csv/")
+
+veg_files = Sys.glob("*.csv")
+
+veg_file=ldply(veg_files, read.csv)
+
+
+#head(veg_file)
+
+#write.csv(veg_file, 
+#  "C:/Users/Elisa/Documents/Woodcock/R_Woodcock/all_veg.csv")
+
+veg_table = veg_file
+
+veg_table$Lattitude <- NULL
+veg_table$Longitude <- NULL
+veg_table$Comments <- NULL
+veg_table$image <- NULL
+veg_table$Date_collected <- NULL
+veg_table$SampPos <-NULL
+
+##Generates two subsets, In MCP and In Buffer
+veg_MCP <- subset(veg_table, SamplePos == "MCP",)
+veg_BUF <- subset(veg_table, SamplePos == "BUF")
+
+##head(veg_MCP)
+
+##Generating MCP means
+Density = mean(veg_MCP$Density/40)
+
+Canopy = mean(veg_MCP$Canopy/37)
+
+Daubenmire_MCP = data.frame(mean(veg_MCP$Litter), mean(veg_MCP$Herbac), 
+                mean(veg_MCP$Shrub), mean(veg_MCP$Tree),
+                mean(veg_MCP$Bare_ground), mean(veg_MCP$Other)            
+                )
+    colnames(Daubenmire_MCP) <- c("Litter", "Herbac", "Shrub",
+                                  "Tree", "Bare ground")
+
+#Daubenmire_MCP
+##Means_MCP has means for all veg within MCP
+Means_MCP = data.frame(Density, Canopy, Daubenmire_MCP)
+
+##Generating Buffer means
+Density = mean(veg_BUF$Density/40)
+
+Canopy = mean(veg_BUF$Canopy/37)
+
+Daubenmire_BUF = data.frame(mean(veg_BUF$Litter), mean(veg_BUF$Herbac), 
+                mean(veg_BUF$Shrub), mean(veg_BUF$Tree),
+                mean(veg_BUF$Bare_ground),mean(veg_BUF$Other)            
+                )
+    colnames(Daubenmire_BUF) <- c("Litter", "Herbac", "Shrub",
+                                  "Tree", "Bare ground")
+
+####mean(Daubenmire_BUF$Shrub)
+
+Means_BUF = data.frame(Density, Canopy, Daubenmire_BUF)
+    colnames(Daubenmire_BUF) <- c("Litter", "Herbac", "Shrub",
+                                  "Tree", "Bare ground", "Other")
+
+##Means_MCP
+##Means_BUF
+
+Means <- rbind(Means_MCP, Means_BUF)
+
+Means$Location = c("MCP", "Buffer")
+
+Means = Means[,c(9, 1, 2, 3, 4, 5, 6, 7, 8)]
+
+Means[,-1] <- round(Means[,-1],2)
+
+Meansx = rename(Means, c("NA."="Other") )
+
+Meansx
+
+```
+
+Linear regression of MCP size as function of vegetation measurements
+
+```{r, echo=FALSE}
+##I need to somehow relate MCP location to vegetation location
+
+##for linear regression 
+#g = lm()
+
+
+
+
+
+```
+

@@ -1,0 +1,17 @@
+{
+    "contents" : "#Example Code for Lisa\nlibrary(plyr)\n\n#Set working directory\nsetwd(\"C:/Users/Elisa/Documents/Woodcock/R_Woodcock/Veg_csv\")\n      \n      #this tells you what files are in the working directory folder\n      filenames=list.files()\n      \n      #This combines all the files you created together into a object called \n      comb.files=ldply(filenames, read.csv)\n      str(comb.files)\n      \n      #this writes all the combined files into a single file called comb_woodcock\n      write.csv(comb.files, \n      \"C:/Users/Elisa/Documents/Woodcock/R_Woodcock/comb_woodcock.csv\")\n      \n      #This creates a new data frame for you to work on.\n      x=comb.files\n      \n      #this creates new variables for the metrics you need to edit via division\n      ## note it has to be x$name = x$oldname/divisor\n      x$Density_40=x$Density/40\n      \n      str(x)\n\n      #this is a piece of summary test code for you to start building off of.\n      my.out=ddply(x, .(BandNmbr, Date_utilized, SamplePos), summarise,\n      BasalArea_xbar=mean(Basal_Area),\n      sd_Basal_Area=sd(Basal_Area),\n      mean_Canopy=mean(Canopy),\n      sd_Canopy=sd(Canopy),\n      mean_Litter=mean(Litter),\n      sd_Litter=sd(Litter)\n      )\n      my.out\n      #colnames(my.out)=c(\"BandNmbr\", \"Date_utilized\", \"Sample_Pos\", \"Mean\", \n      \"SD\", \"Max\")\n      #my.out\n      #\n      #\n      #\n      xx=x\n      summary(aov(xx$Litter~xx$SamplePos))\n      summary(aov(xx$Herbac~xx$SamplePos))\n      summary(aov(xx$Shrub~xx$SamplePos))\n      summary(aov(xx$Tree~xx$SamplePos))\n      summary(aov(xx$Bare_ground~xx$SamplePos))\n      summary(aov(xx$Density~xx$SamplePos))\n      aov(xx$Litter~xx$SamplePos)",
+    "created" : 1468955457922.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "229253458",
+    "id" : "857E970D",
+    "lastKnownWriteTime" : 1468962977,
+    "path" : "~/Woodcock/R_Woodcock/merge_script.R",
+    "project_path" : "merge_script.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

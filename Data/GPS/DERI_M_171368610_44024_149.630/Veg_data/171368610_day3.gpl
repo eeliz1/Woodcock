@@ -1,0 +1,6 @@
+GPL11
+Time, Latitude, Longitude, Altitude, SampleID, GPSQuality, HOffset, HOffsetDir, RecordID, GPSSpeed, GPSHeading, Rate(RX), Rate(Actual), Swath(Actual), Markers
+
+START POINTS
+1458588812,30.81759002,-93.38103008,60.100000,0,2,0.000000,x,2,0.000000,249,0.000000,0.000000,0.000000,0
+STOP POINTS

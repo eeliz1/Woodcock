@@ -1,0 +1,52 @@
+#Example Code for Lisa
+library(plyr)
+
+#Set working directory
+setwd("C:/Users/Elisa/Documents/Woodcock/R_Woodcock/Veg_csv")
+      
+      #this tells you what files are in the working directory folder
+      filenames=Sys.glob("*.csv")
+      
+      head(filenames)
+      #This combines all the files you created together into a object called 
+      comb.files=ldply(filenames, read.csv)
+      str(comb.files)
+      
+      #this writes all the combined files into a single file called comb_woodcock
+      write.csv(comb.files, 
+      "C:/Users/Elisa/Documents/Woodcock/R_Woodcock/comb_woodcock.csv")
+      
+      #This creates a new data frame for you to work on.
+      x=comb.files
+
+      #this creates new variables for the metrics you need to edit via division
+      ## note it has to be x$name = x$oldname/divisor
+      x$Density_40=x$Density/40
+      
+      str(x)
+
+      #this is a piece of summary test code for you to start building off of.
+      my.out=ddply(x, .(BandNmbr, Date_utilized, SamplePos), summarise,
+      BasalArea_xbar=mean(Basal_Area),
+      sd_Basal_Area=sd(Basal_Area),
+      mean_Canopy=mean(Canopy),
+      sd_Canopy=sd(Canopy),
+      mean_Litter=mean(Litter),
+      sd_Litter=sd(Litter)
+      )
+
+      my.out
+      #colnames(my.out)=c("BandNmbr", "Date_utilized", "Sample_Pos", "Mean", 
+      "SD", "Max")
+      #my.out
+      #
+      #
+      #
+      xx=x
+      summary(aov(xx$Litter~xx$SamplePos))
+      summary(aov(xx$Herbac~xx$SamplePos))
+      summary(aov(xx$Shrub~xx$SamplePos))
+      summary(aov(xx$Tree~xx$SamplePos))
+      summary(aov(xx$Bare_ground~xx$SamplePos))
+      summary(aov(xx$Density~xx$SamplePos))
+      aov(xx$Litter~xx$SamplePos)
