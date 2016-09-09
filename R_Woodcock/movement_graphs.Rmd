@@ -44,5 +44,5 @@ for (file in move_files){
   md$spdfdist=distVincentyEllipsoid(spdf1, spdf2)
   #head(md)
   md=md[md$spdf<=5000,]
-  plot(md$dt, md$spdfdist, xlab="Time", type="l")
+  plot(md$dt, md$spdfdist, xlab="Time", ylab="Distance Moved (m)", type="l")
 }
