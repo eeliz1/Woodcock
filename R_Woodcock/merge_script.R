@@ -15,7 +15,7 @@ setwd("C:/Users/Elisa/Documents/Woodcock/R_Woodcock/Veg_csv")
       #this writes all the combined files into a single file called comb_woodcock
       write.csv(comb.files, 
       "C:/Users/Elisa/Documents/Woodcock/R_Woodcock/comb_woodcock.csv")
-      
+     
       #This creates a new data frame for you to work on.
       x=comb.files
 
