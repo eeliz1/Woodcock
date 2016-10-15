@@ -1,0 +1,49 @@
+#######################################
+##script to generate movement plots
+##distance moved x time
+#######################################
+
+library(plyr)
+library(xtable)
+library(sp)
+library(geosphere)
+library(scales)
+library(ggplot2)
+#md = read.csv("C:/Users/Elisa/Documents/Woodcock/Data/GPS/Pinpoint/PinPoint 44025 2016-02-03 09-05-57.csv",
+#              header=TRUE, skip=4)
+
+##get all .csv file names from folder into object "Filenames"
+setwd("C:/Users/Elisa/Documents/Woodcock/Data/GPS/Pinpoint/season1")
+
+move_files <- Sys.glob("*.csv")
+#move_files
+
+#head(md)
+for (file in move_files){
+  md <- read.csv(file, header=TRUE, sep=,)
+  
+  ##create POSIX object
+  md$gmt=strptime(paste(md$GMT.Time),"%m/%d/%Y %H:%M")
+  md$dt=md$gmt-(60*60*6)
+  md=md[order(md$dt),]
+  
+  ##omit non-fixes
+  om <- with(md, (Latitude==0.00000))
+  md <-md[!om,]
+  
+  ##from Woodcock move
+  xy=md[,c(4,3)]
+  spdf=SpatialPointsDataFrame(xy, md, proj4string = CRS("+proj=longlat +datum=WGS84"))
+  #plot(spdf)
+  spdf1=spdf[-nrow(spdf),]
+  spdf2=spdf[-1,]
+  md=md[-nrow(md),]
+  md$spdfdist=distVincentyEllipsoid(spdf1, spdf2)
+  #head(md)
+  md=md[md$spdf<=5000,]
+  
+  ##generate and save plot
+  qplot(md$dt, md$spdfdist, xlab = "Time", ylab="Distance Moved (m)",main=paste("Movement by", md$BandNmbr[1]), geom='line')+scale_x_datetime(labels = date_format("%m/%d"))+theme(panel.grid.major = element_line(color='snow2'),panel.grid.minor = element_blank(),panel.background = element_rect(fill = "white"))                                                                                                                                                                                                       
+  ggsave(file=paste("C:/Users/Elisa/Pictures/Graphs/g", "mvt_", md$BandNmbr[1], ".png", sep=""))
+}
+  
