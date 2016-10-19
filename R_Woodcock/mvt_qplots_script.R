@@ -43,7 +43,7 @@ for (file in move_files){
   md=md[md$spdf<=5000,]
   
   ##generate and save plot
-  qplot(md$dt, md$spdfdist, xlab = "Time", ylab="Distance Moved (m)",main=paste("Movement by", md$BandNmbr[1]), geom='line')+scale_x_datetime(labels = date_format("%m/%d"))+theme(panel.grid.major = element_line(color='snow2'),panel.grid.minor = element_blank(),panel.background = element_rect(fill = "white"))                                                                                                                                                                                                       
+  qplot(md$dt, md$spdfdist, xlab = "Time", ylab="Distance Moved (m)",main=paste("Movement by", md$BandNmbr[1]), geom='line')+ylim(0,1600)+scale_x_datetime(labels = date_format("%m/%d"))+theme(panel.grid.major = element_line(color='snow2'),panel.grid.minor = element_blank(),panel.background = element_rect(fill = "white"), axis.text=element_text(size=16), axis.title=element_text(size=16), plot.title=element_text(size=18))                                                                                                                                                                                                       
   ggsave(file=paste("C:/Users/Elisa/Pictures/Graphs/g", "mvt_", md$BandNmbr[1], ".png", sep=""))
 }
   
