@@ -61,8 +61,3 @@ transform(ma, Area..ha. = as.numeric(Area..ha.))
 ggplot(ma, aes(ma$Sex, as.numeric(as.character(x=Area..ha.))))+geom_boxplot()
 
 
-day_areas= data.frame(Sex = c("M", "F"),
-                        Area=c(0.36, 0.11))
-
-
-plot(day_areas)
