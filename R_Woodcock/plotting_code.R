@@ -19,7 +19,7 @@ qplot(Weight,data=bd, fill=Sex)
 
 
 bd.1 = bd[which(bd$Sex == 'M'),]
-bd.1 = bd.1[which(bd.1$Weight > 170),]
+bd.1 = bd.1[which(bd.1$Weight > 0),]
 bd.1
 
 qplot(Date.1, data=bd, fill=Sex, geom=('histogram'))
@@ -59,5 +59,24 @@ typeof(as.numeric(ma$Area..ha.))
 transform(ma, Area..ha. = as.numeric(Area..ha.))
 
 ggplot(ma, aes(ma$Sex, as.numeric(as.character(x=Area..ha.))))+geom_boxplot()
+
+
+
+
+#####################
+##random summarizing
+##2015-2016 banding
+####################
+bd$Date.1
+
+
+bd_Nov= subset(bd, format(Date.1, '%m') == '11')
+bd_Dec= subset(bd, format(Date.1, '%m') == '12')
+bd_Jan= subset(bd, format(Date.1, '%m') == '01')
+
+cat(paste("\n","Nov:", nrow(bd_Nov),"\n", "Dec:", nrow(bd_Dec),"\n", "Jan:", nrow(bd_Jan)))
+
+
+
 
 

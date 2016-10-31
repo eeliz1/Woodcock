@@ -12,6 +12,7 @@ library(plyr)
 library(xtable)
 library(sp)
 library(geosphere)
+library(ggplot2)
 #md = read.csv("C:/Users/Elisa/Documents/Woodcock/Data/GPS/Pinpoint/PinPoint 44025 2016-02-03 09-05-57.csv",
 #              header=TRUE, skip=4)
 
@@ -44,5 +45,7 @@ for (file in move_files){
   md$spdfdist=distVincentyEllipsoid(spdf1, spdf2)
   #head(md)
   md=md[md$spdf<=5000,]
-  plot(md$dt, md$spdfdist, xlab="Time", ylab="Distance Moved (m)", type="l")
+  ##plot(md$dt, md$spdfdist, xlab="Time", ylab="Distance Moved (m)", type="l")
+  print(ggplot(md, aes(dt, spdfdist)) + geom_line(color="red") + xlab("Time") 
+        + ylab("Distance Moved (m)") + ggtitle(paste("Band #", md$BandNmbr[1], sep=""))+ ylim(0,4000))
 }
