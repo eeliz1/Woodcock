@@ -15,10 +15,21 @@ setwd("C:/Users/Elisa/Documents/Woodcock/Data/GPS/Pinpoint/season2/new")
 ##takes all files with ".csv" ending and stores to obj
 fileNames <- Sys.glob("*.csv")
 
+
+
+
+##the times for use point production
+##CST
+hrs1 = c('07', '08', '09', 10:17)
+hrs2 = c(18:24, paste(0, 1:6, sep=""))
+
+bd=read.csv("C:/Users/Elisa/Documents/Woodcock/Banding.csv", header=TRUE)
+
 for(fileName in fileNames){
-  x <- read.csv(fileName, header=TRUE, skip=4)
+  #browser()
+  x <- read.csv(fileName, header=TRUE, sep=,, skip=4)
   df=x
-  df$BandNmbr = substr(fileName,1, 9)
+  df$BandNmbr = substr(fileName, 1, 9)
   ##create POSIX object
   df$gmt=strptime(paste(df$GMT.Time),"%m/%d/%Y %H:%M")
   df$dt=df$gmt-(60*60*6)
@@ -44,12 +55,23 @@ for(fileName in fileNames){
     x <- c(x, grep(date2, df$dt))
     ##change length for >i to adjust number of
     ##points needed to build MCP
-    if (length(x)>0) {
+    if (length(x)>5) {
       ##generate MCP as .shp
       my.mcp=mcp(df[x,])
-      writeOGR(my.mcp, "C:/Users/Elisa/Documents/Woodcock/Data/R_output/Day_MCPs",
+      writeOGR(my.mcp, "C:/Users/Elisa/Documents/Woodcock/Data/R_output/Day_MCPs/new",
                layer=paste(df$BandNmbr[1], "MCP", date, "day", sep="_"), driver="ESRI Shapefile")
+      
+##############################################################################################################    
+      ##use points
+      dfp = subset(df, format (df$dt, '%d') %in% date)
+      dfp = subset(dfp, format (dfp$dt, '%H') %in% hrs1)
+
+      writeOGR(dfp, "C:/Users/Elisa/Documents/Woodcock/Data/R_output/MCP_pts/new",
+               layer=paste(dfp$BandNmbr[1], "pts", date, "day", sep="_"), driver="ESRI Shapefile")
+##############################################################################################################
+      
     }
+    
   }     
   #Night dates
   for (date in dates){
@@ -64,8 +86,15 @@ for(fileName in fileNames){
     if (length(x)>0){
       ##generate MCP as .shp
       my.mcp=mcp(df[x,])
-      writeOGR(my.mcp, "C:/Users/Elisa/Documents/Woodcock/Data/R_output/Night_MCPs",
+      writeOGR(my.mcp, "C:/Users/Elisa/Documents/Woodcock/Data/R_output/Night_MCPs/new",
                layer=paste(df$BandNmbr[1], "MCP", date, "night", sep="_"), driver="ESRI Shapefile")
+      
+      ##use points
+      dfp = subset(df, format (df$dt, '%d') %in% date)
+      dfp = subset(dfp, format (dfp$dt, '%H') %in% hrs2)
+      
+      writeOGR(dfp, "C:/Users/Elisa/Documents/Woodcock/Data/R_output/MCP_pts/new",
+               layer=paste(dfp$BandNmbr[1], "pts", date, "night", sep="_"), driver="ESRI Shapefile")
     }
   }
 }

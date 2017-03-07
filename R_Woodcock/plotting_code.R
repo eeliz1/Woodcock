@@ -36,6 +36,8 @@ qplot(Date.1, data=bd, fill=Sex, geom=('histogram'))
 bd$Status
 
 qplot(Status, data=bd, fill=Sex, main="Birds Captured", ylab="Number of Birds")
+
+nrow(bd[which(bd$Status=="G"),])
  
 
 ma=read.csv("C:/Users/Elisa/Documents/Woodcock/Data/MCP_area_2.csv", header=TRUE)

@@ -18,6 +18,7 @@ setwd("C:/Users/Elisa/Documents/Woodcock/R_Woodcock/Temp")
 
 fileNames <- Sys.glob("*.csv")
 fileNames
+df=fileNames[1]
 
 ##Generate MCPs
 for(fileName in fileNames){

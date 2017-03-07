@@ -1,0 +1,114 @@
+---
+title: "hwk4"
+author: "Lisa"
+date: "November 28, 2016"
+output: html_document
+---
+Part I
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(ggmcmc)
+library(R2jags)
+library(lattice)
+library(mcmcplots)
+library(coda)
+library(gdata)
+
+setwd("C:/Users/Elisa/Documents/Ecostats")
+
+df = read.csv("ShrikeLocationBayes.csv")
+```
+
+Part II
+
+```{r}
+#############################################################################################
+#######PART II
+#######JAGS code
+#############################################################################################
+
+df = read.csv("C:/Users/Elisa/Documents/Ecostats/ShrikeLocationBayes.csv")
+
+L1 = df[which (df$Location=="LocationOne"),]
+L2 = df[which (df$Location=="LocationTwo"),]
+y1 = L1$Fledge.Counts
+y2 = L2$Fledge.Counts
+x1 = L1$Precip.Index
+x2 = L2$Precip.Index
+n1=nrow(L1)
+
+sink("hwk4_jags.txt")
+
+cat("
+    model {
+    
+    ##Priors
+    a1~ dnorm(0,0.01)
+    a2~ dnorm(0,0.01)
+    beta~ dnorm(0,0.01)
+    
+    #Likelihood
+    for (i in 1:n1){                                    ##n is number of observations, defined later
+    y1[i] ~ dpois(res1[i])
+    log(res1[i]) <-a1+beta*x1[i]
+    
+    y2[i] ~ dpois(res2[i])
+    log(res2[i]) <-a2+beta*x2[i]
+
+    ##Fit statistic
+    #Presid[i] = ()/sqrt()
+
+    }
+    
+   ##fit <- sum(D[]) # Discrepancy actual data
+   ##fit.new <- sum(D.new[]) # Discrepancy replicated data
+}
+  
+    ", fill=TRUE)
+
+sink()
+
+
+##see ch 21 "Package for Jags"; what is it??
+##what data need to be fed to jags?
+
+jag.data <- list('y1', 'y2', 'x1', 'x2', 'n1')
+
+
+## Initial Values
+inits <- function(){
+  #y=array(df$Fledge.Counts) ##y cannot equal -, can't have negative fledgings; but if measured directly, no estimate?
+  list(a1=rnorm(1,0,1), a2=rnorm(1,0,1), beta=rnorm(1,0,1)) 
+}
+
+## Parameters to be monitored (=to estimate)
+params <- c("a1", "a2", "beta", "y1", "y2")
+
+##MCMC Settings
+##NO chains; no draws; burn=in; thin
+##nb burn-in, nt thinning rate (keeps every x iteration)
+##ni usually start small just to make sure everything is working
+nc<- 3; ni<- 1e4; nb <- 600; nt<-1
+
+
+##Start Jags sampler
+out <- jags(data=jag.data, inits=inits, parameters.to.save=params,
+            model.file="hwk4_jags.txt", n.chains=nc, n.thin=nt,
+            n.burnin=nb,n.iter=ni, DIC=TRUE, working.directory=getwd())  #add nt and nb if applicable 
+
+str(out$BUGSoutput$mean)
+##check parameter estimates
+coefs_b=out$BUGSoutput$mean
+
+
+
+```
+
+Part III
+
+```{r}
+plot(pressure)
+```
