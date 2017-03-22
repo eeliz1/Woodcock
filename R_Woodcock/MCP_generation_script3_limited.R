@@ -26,7 +26,7 @@ hrs2 = c(18:24, paste(0, 1:6, sep=""))
 bd=read.csv("C:/Users/Elisa/Documents/Woodcock/Banding.csv", header=TRUE)
 
 for(fileName in fileNames){
-  browser()
+  #browser()
   x <- read.csv(fileName, header=TRUE, sep=,, skip=4)
   df=x
   df$BandNmbr = substr(fileName, 1, 9)
@@ -98,7 +98,7 @@ for(fileName in fileNames){
       dfp = subset(df, format (df$dt, '%d') %in% substr(date, 9, 10))
       dfp = subset(df, format (dfp$dt, '%H') %in% hrs2)
       
-      if(length(dfp>0)){
+      if(length(dfp)>0){
       writeOGR(dfp2, "C:/Users/Elisa/Documents/Woodcock/Data/R_output/MCP_pts/new",
                layer=paste(dfp$BandNmbr[1], "pts", date, "night", sep="_"), driver="ESRI Shapefile")
       }
