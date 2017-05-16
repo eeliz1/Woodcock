@@ -9,7 +9,7 @@ library(adehabitatHR)
 ############################################################
 
 ##set working directory to folder with pinpoint files
-setwd("C:/Users/Elisa/Documents/Woodcock/Data/GPS/Pinpoint/season2/new")
+setwd("C:/Users/Elisa/Documents/Woodcock/Data/GPS/Pinpoint/season2/")
 
 
 ##takes all files with ".csv" ending and stores to obj
@@ -24,6 +24,8 @@ hrs1 = c('07', '08', '09', 10:17)
 hrs2 = c(18:24, paste(0, 1:6, sep=""))
 
 bd=read.csv("C:/Users/Elisa/Documents/Woodcock/Banding.csv", header=TRUE)
+
+fileName=fileNames[3]
 
 for(fileName in fileNames){
   #browser()
@@ -97,4 +99,7 @@ for(fileName in fileNames){
                layer=paste(dfp$BandNmbr[1], "pts", date, "night", sep="_"), driver="ESRI Shapefile")
     }
   }
+}
+
+
 }
