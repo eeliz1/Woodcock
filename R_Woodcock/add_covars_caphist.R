@@ -45,5 +45,23 @@ for (i in 1:nrow(df)){
   }
 }
 
+
+
 write.csv(df, "C:/Users/Elisa/Documents/Woodcock/Thesis/Survival/all_seasons_ch_covars.csv")
 
+
+
+
+
+df = read.csv("C:/Users/Elisa/Documents/Woodcock/Thesis/Survival/all_seasons_ch_covars.csv", header=T)
+head(bd)
+
+for (i in 1:nrow(df)){
+  for (j in 1:nrow(bd))
+    if(df$Band.Number[i] == as.character(bd$BandNmbr[j])){
+      df$site[i] = bd$site[j]
+      df$sex[i] = bd$sex[j]
+      df$tag[i]=bd$status[j]
+      df$age[i]=bd$age[j]
+    }
+}

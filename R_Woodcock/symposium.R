@@ -131,7 +131,7 @@ cf$dt = as.POSIXct(cf$dt)
 ##get a random direction and a specified distance
 
 ##distance from point in m
-d = 45
+d = 15
 
 ##storage vector
 samp_pts = c()
@@ -148,7 +148,7 @@ for (i in 1:nrow(cf)){
   dx = d*sin(theta)  
   dy = d*cos(theta)  
   
-  delta_longitude = dx/(111320*cos(test_lat))  # dx, dy in meters
+  delta_longitude = dx/(111320*cos(lat))  # dx, dy in meters
   delta_latitude = dy/110540        
   
   ##sampling point values
@@ -167,6 +167,6 @@ samp_pts = as.data.frame(samp_pts)
 colnames(samp_pts) <- c("Location_Latitude", "Location_Longitude",
                         "Sample_Latitude", "Sample_Longitude")
 
-write.csv(samp_pts, file=paste("C:/Users/Elisa/Documents/Woodcock/Thesis/", 
-                               "45m_samppts.csv", sep=""))
+write.csv(samp_pts, file=paste("C:/Users/Elisa/Documents/Woodcock/Thesis/", d,
+                               "m_samppts_2.csv",sep=""))
 
