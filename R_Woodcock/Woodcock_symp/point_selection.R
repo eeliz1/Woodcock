@@ -1,5 +1,3 @@
-
-
 ##only working with one bird here
 df = read.csv("C:/Users/Elisa/Documents/Woodcock/Data/GPS/Pinpoint/season1/171368602_pinpoint.csv",
               header=TRUE)

@@ -8,7 +8,8 @@ library(RMark)
 #list.files()
 
 ##choose all_seasons_ch_covars.csv
-df = read.csv(file.choose(), header=TRUE)
+#df = read.csv(file.choose(), header=TRUE)
+df = read.csv("C:/Users/Elisa/Documents/Woodcock/Thesis/Survival/all_seasons_ch_covars.csv")
 df2 = df[,c(1, 17:24)]
 df = df[,2:(ncol(df)-8)]
 
