@@ -1,12 +1,14 @@
+library(sp)
+library(geosphere)
+library(plr)
 
-
-setwd("C:/Users/Elisa/Documents/Woodcock/Data/GPS/Pinpoint/season2")
+setwd("C:/Users/Elisa/Documents/Woodcock/Data/GPS/Pinpoint/all")
 
 move_files <- Sys.glob("*.csv")
 ##get averages
 time = NULL
 move = NULL
-hrs = c('08', '09', 10:17)
+hrs = c('09', 10:15)
 
 for (file in move_files){
   md <- read.csv(file, header=TRUE, skip=4)
@@ -21,7 +23,8 @@ for (file in move_files){
   md <-md[!om,]
   
   ##from Woodcock move
-  xy=md[,c(3,2)]
+  xy=cbind(md$Longitude, md$Latitude)
+  
   spdf=SpatialPointsDataFrame(xy, md, proj4string = CRS("+proj=longlat +datum=WGS84"))
   #plot(spdf)
   spdf1=spdf[-nrow(spdf),]
@@ -37,3 +40,10 @@ for (file in move_files){
   ##generate and save plot
   move = c(move, dfp$spdfdist)
 }
+
+
+move
+
+move2 = move[which(move<500)]
+
+mean(move2)

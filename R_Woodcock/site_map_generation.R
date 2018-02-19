@@ -7,7 +7,7 @@ library(ggmap)
 
 ##creating data frame with site locations
 Sites = c("Deridder", "Boyce", "Dewey Wills WMA", "Sherburne WMA",
-          "Tensas NWR", "Bayou Pierre WMA", "Yancey WMA", "Palmetto")
+          "Tensas NWR", "Red River NWR", "Yancey WMA", "Palmetto")
 region = c("West Gulf Coastal Plains","West Gulf Coastal Plains", "Mississippi Alluvial Valley","Mississippi Alluvial Valley",
            "Mississippi Alluvial Valley", "West Gulf Coastal Plains", "Mississippi Alluvial Valley", "Mississippi Alluvial Valley")
 lats= c(30.826063, 31.299694, 31.433662, 30.515264, 32.311818, 32.204581, 31.205506, 30.689852) 

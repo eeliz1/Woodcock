@@ -9,7 +9,7 @@ library(adehabitatHR)
 ############################################################
 
 ##set working directory to folder with pinpoint files
-setwd("C:/Users/Elisa/Documents/Woodcock/Data/GPS/Pinpoint/season2/new")
+setwd("C:/Users/Elisa/Documents/Woodcock/Data/GPS/Pinpoint/all")
 
 
 ##takes all files with ".csv" ending and stores to obj
@@ -64,7 +64,7 @@ for(fileName in fileNames){
     if (length(x)>0){
       ##generate MCP as .shp
       my.mcp=mcp(df[x,])
-      writeOGR(my.mcp, "C:/Users/Elisa/Documents/Woodcock/Data/R_output/Night_MCPs",
+      writeOGR(my.mcp, "C:/Users/Elisa/Documents/Woodcock/Data/R_output/MCPs_band/",
                layer=paste(df$BandNmbr[1], "MCP", date, "night", sep="_"), driver="ESRI Shapefile")
     }
   }

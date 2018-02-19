@@ -1,0 +1,230 @@
+
+   Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(Win64) Vers. 8.2 Sep 2017    6-Nov-2017 21:02:00    Page  001
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+   This version was compiled by GCC version 5.3.0 using the options: 
+     -cpp -iprefix c:\tdm-gcc-64\gcc\bin\../lib/gcc/x86_64-w64-mingw32/5.3.0/ -D_MT
+     -U_REENTRANT -D IEEE -m64 -mtune=generic -march=x86-64 -mthreads -O2
+     -fimplicit-none -fbounds-check -funroll-loops -ftree-vectorize
+     -ffpe-summary=invalid,zero,overflow,underflow -fno-unsafe-math-optimizations
+     -frounding-math -fsignaling-nans -fopenmp.
+
+   This problem will use 3 of 4 possible threads.
+
+
+  INPUT --- proc title ;
+
+     CPU Time in seconds for last procedure was 0.02
+
+
+  INPUT --- proc chmatrix occasions= 15 groups= 2 etype= Known ICMeans 
+  INPUT --- NoHist hist= 74 ;
+
+  INPUT ---    time  interval 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 ;
+
+  INPUT ---    glabel(1)=sexF;
+
+  INPUT ---    glabel(2)=sexM;
+
+   * *  WARNING  * *   At least a pair of the encounter histories are duplicates. 
+
+      Number of unique encounter histories read was 60.
+
+      Number of individual covariates read was 0.
+      Time interval lengths are all equal to 1.
+
+      Data type number is 4
+      Data type is Known Fate                                                                                          
+
+     CPU Time in seconds for last procedure was 0.00
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(Win64) Vers. 8.2 Sep 2017    6-Nov-2017 21:02:00    Page  002
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+
+
+  INPUT --- proc estimate link=Logit NOLOOP varest=2ndPart    ;
+
+
+  INPUT --- model={ S(~age) };
+
+  INPUT ---    group=1 S    rows=1 cols=15 Square ;
+  INPUT ---        1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 ;
+
+  INPUT ---    group=2 S    rows=1 cols=15 Square ;
+  INPUT ---        1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 ;
+
+  INPUT ---    design matrix constraints=15 covariates=15;
+  INPUT ---        1 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+  INPUT ---        1 1 0 0 0 0 0 0 0 0 0 0 0 0 0;
+  INPUT ---        1 0 1 0 0 0 0 0 0 0 0 0 0 0 0;
+  INPUT ---        1 0 0 1 0 0 0 0 0 0 0 0 0 0 0;
+  INPUT ---        1 0 0 0 1 0 0 0 0 0 0 0 0 0 0;
+  INPUT ---        1 0 0 0 0 1 0 0 0 0 0 0 0 0 0;
+  INPUT ---        1 0 0 0 0 0 1 0 0 0 0 0 0 0 0;
+  INPUT ---        1 0 0 0 0 0 0 1 0 0 0 0 0 0 0;
+  INPUT ---        1 0 0 0 0 0 0 0 1 0 0 0 0 0 0;
+  INPUT ---        1 0 0 0 0 0 0 0 0 1 0 0 0 0 0;
+  INPUT ---        1 0 0 0 0 0 0 0 0 0 1 0 0 0 0;
+  INPUT ---        1 0 0 0 0 0 0 0 0 0 0 1 0 0 0;
+  INPUT ---        1 0 0 0 0 0 0 0 0 0 0 0 1 0 0;
+  INPUT ---        1 0 0 0 0 0 0 0 0 0 0 0 0 1 0;
+  INPUT ---        1 0 0 0 0 0 0 0 0 0 0 0 0 0 1;
+  INPUT ---       blabel(1)=S:(Intercept);
+  INPUT ---       blabel(2)=S:age2;
+  INPUT ---       blabel(3)=S:age3;
+  INPUT ---       blabel(4)=S:age4;
+  INPUT ---       blabel(5)=S:age5;
+  INPUT ---       blabel(6)=S:age6;
+  INPUT ---       blabel(7)=S:age7;
+  INPUT ---       blabel(8)=S:age8;
+  INPUT ---       blabel(9)=S:age9;
+  INPUT ---       blabel(10)=S:age10;
+  INPUT ---       blabel(11)=S:age11;
+  INPUT ---       blabel(12)=S:age12;
+  INPUT ---       blabel(13)=S:age13;
+  INPUT ---       blabel(14)=S:age14;
+  INPUT ---       blabel(15)=S:age15;
+  INPUT ---       rlabel(1)=S gF a1 t2;
+  INPUT ---       rlabel(2)=S gF a2 t3;
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(Win64) Vers. 8.2 Sep 2017    6-Nov-2017 21:02:00    Page  003
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+  INPUT ---       rlabel(3)=S gF a3 t4;
+  INPUT ---       rlabel(4)=S gF a4 t5;
+  INPUT ---       rlabel(5)=S gF a5 t6;
+  INPUT ---       rlabel(6)=S gF a6 t7;
+  INPUT ---       rlabel(7)=S gF a7 t8;
+  INPUT ---       rlabel(8)=S gF a8 t9;
+  INPUT ---       rlabel(9)=S gF a9 t10;
+  INPUT ---       rlabel(10)=S gF a10 t11;
+  INPUT ---       rlabel(11)=S gF a11 t12;
+  INPUT ---       rlabel(12)=S gF a12 t13;
+  INPUT ---       rlabel(13)=S gF a13 t14;
+  INPUT ---       rlabel(14)=S gF a14 t15;
+  INPUT ---       rlabel(15)=S gF a15 t16;
+
+ Link Function Used is LOGIT        
+
+ Variance Estimation Procedure Used is 2ndPart 
+ -2logL(saturated) = 64.306168     
+ Effective Sample Size = 278
+
+ Number of function evaluations was 40 for 15 parameters.
+ Time for numerical optimization was 0.03 seconds.
+ -2logL { S(~age) } = 80.435152     
+ Penalty { S(~age) } = -0.0000000    
+ Gradient { S(~age) }:
+ -0.1931872E-04  0.000000    -0.8306370E-06  0.000000      0.000000    
+  0.4712254E-04-0.1382934E-04-0.1375158E-04  0.000000     0.7974650E-05
+   0.000000      0.000000    -0.4593625E-04  0.000000      0.000000    
+ S Vector { S(~age) }:
+   12.93603      2.766216      2.178016      1.788657      1.089880    
+  0.7266762     0.1342325E-05 0.1654673E-07 0.1357700E-07 0.1072147E-07
+  0.9584154E-08 0.8884546E-08 0.4786150E-08 0.2904651E-08 0.6817337E-12
+ Time to compute number of parameters was 0.01 seconds.
+   Threshold =  0.3200000E-06     Condition index =  0.5270037E-13     New Threshold =  0.2640343E-11
+ New Guessimate of Estimated Parameters { S(~age) } = 14          
+ Conditioned S Vector { S(~age) }:
+   1.000000     0.2138381     0.1683681     0.1382693     0.8425151E-01
+  0.5617458E-01 0.1037664E-06 0.1279120E-08 0.1049549E-08 0.8288064E-09
+  0.7408882E-09 0.6868061E-09 0.3699859E-09 0.2245396E-09 0.5270037E-13
+ Number of Estimated Parameters { S(~age) } = 6          
+ DEVIANCE { S(~age) } = 16.128984                     
+ DEVIANCE Degrees of Freedom { S(~age) } = 24            
+ c-hat { S(~age) } = 0.6720410                     
+ AIC { S(~age) } = 92.435152                  
+ AICc { S(~age) } = 92.745115                    
+ BIC { S(~age) } = 114.20088                    
+ Pearson Chisquare { S(~age) } = 1016.9922                  
+ Possible Encounter Histories { S(~age) } = 60             
+ Pearson Chisquare df { S(~age) } = 52        
+ Pearson chat { S(~age) } = 19.557542                  
+ Sum(Observed/Expected) { S(~age) } = 27.887893                  
+ Fletcher chat { S(~age) } = 42.077490                  
+
+
+                         LOGIT Link Function Parameters of { S(~age) }
+                                                              95% Confidence Interval
+ Parameter                    Beta         Standard Error      Lower           Upper
+ -------------------------  --------------  --------------  --------------  --------------
+    1:S:(Intercept)         16.801529       0.0000000       16.801529       16.801529     
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(Win64) Vers. 8.2 Sep 2017    6-Nov-2017 21:02:00    Page  004
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+    2:S:age2                7.6037409       0.0000000       7.6037409       7.6037409     
+    3:S:age3                -16.108383      0.0000000       -16.108383      -16.108383    
+    4:S:age4                5.1259294       0.0000000       5.1259294       5.1259294     
+    5:S:age5                11.919363       5347.4624       -10469.107      10492.946     
+    6:S:age6                -14.138933      0.0000000       -14.138933      -14.138933    
+    7:S:age7                -14.722091      0.0000000       -14.722091      -14.722091    
+    8:S:age8                -14.604308      0.0000000       -14.604308      -14.604308    
+    9:S:age9                5.2963945       0.0000000       5.2963945       5.2963945     
+   10:S:age10               -13.434229      0.0000000       -13.434229      -13.434229    
+   11:S:age11               8.8906678       4900.4500       -9595.9916      9613.7729     
+   12:S:age12               6.9091078       5314.2965       -10409.112      10422.930     
+   13:S:age13               -14.498952      0.0000000       -14.498952      -14.498952    
+   14:S:age14               6.1407716       0.0000000       6.1407716       6.1407716     
+   15:S:age15               8.3001255       0.0000000       8.3001255       8.3001255     
+
+
+                         Real Function Parameters of { S(~age) }
+                                                               95% Confidence Interval
+  Parameter                  Estimate       Standard Error      Lower           Upper
+ --------------------------  --------------  --------------  --------------  --------------
+     1:S gF a1 t2            0.9999999       0.0000000       0.9999999       0.9999999                           
+     2:S gF a2 t3            1.0000000       0.0000000       1.0000000       1.0000000                           
+     3:S gF a3 t4            0.6666665       0.2721656       0.1535073       0.9566299                           
+     4:S gF a4 t5            1.0000000       0.0000000       1.0000000       1.0000000                           
+     5:S gF a5 t6            1.0000000       0.1793015E-008  1.0000000       1.0000000                           
+     6:S gF a6 t7            0.9347831       0.0364046       0.8164047       0.9788143                           
+     7:S gF a7 t8            0.8888885       0.0740742       0.6478130       0.9720621                           
+     8:S gF a8 t9            0.8999996       0.0670821       0.6761918       0.9748669                           
+     9:S gF a9 t10           1.0000000       0.0000000       1.0000000       1.0000000                           
+    10:S gF a10 t11          0.9666668       0.0327730       0.7979917       0.9953249                           
+    11:S gF a11 t12          1.0000000       0.3401538E-007  0.9999999       1.0000001                           
+    12:S gF a12 t13          1.0000000       0.2677616E-006  0.9999995       1.0000005                           
+    13:S gF a13 t14          0.9090902       0.0500440       0.7531980       0.9703850                           
+    14:S gF a14 t15          1.0000000       0.0000000       1.0000000       1.0000000                           
+    15:S gF a15 t16          1.0000000       0.0000000       1.0000000       1.0000000                           
+
+
+                     Estimates of Derived Parameters
+
+                   Survival Estimates of { S(~age) }
+
+       Pr. Surviving
+        Duration of                   95% Confidence Interval
+ Group     Study      Standard Error     Lower          Upper     
+ ----- -------------- -------------- -------------- --------------
+   1   0.4381198      0.1883691      0.1482262      0.7774710     
+   2   0.4381198      0.1883691      0.1482262      0.7774710     
+
+ Attempted ordering of parameters by estimatibility:
+   1  6 13  8  7  3 10 14  9 15 11  5 12  4  2
+ Beta number 2 is a singular value.
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(Win64) Vers. 8.2 Sep 2017    6-Nov-2017 21:02:00    Page  005
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+
+     CPU Time in seconds for last procedure was 0.05
+
+
+  INPUT --- proc stop;
+
+     CPU Time in minutes for this job was 0.00
+
+     Time Start = 21:02:00.024   Time End = 21:02:00.073
+
+     Wall Clock Time in minutes for this job was 0.00
+
+
+          E X E C U T I O N   S U C C E S S F U L 

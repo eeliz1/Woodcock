@@ -1,0 +1,152 @@
+
+   Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(Win64) Vers. 8.2 Sep 2017    6-Nov-2017 21:02:21    Page  001
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+   This version was compiled by GCC version 5.3.0 using the options: 
+     -cpp -iprefix c:\tdm-gcc-64\gcc\bin\../lib/gcc/x86_64-w64-mingw32/5.3.0/ -D_MT
+     -U_REENTRANT -D IEEE -m64 -mtune=generic -march=x86-64 -mthreads -O2
+     -fimplicit-none -fbounds-check -funroll-loops -ftree-vectorize
+     -ffpe-summary=invalid,zero,overflow,underflow -fno-unsafe-math-optimizations
+     -frounding-math -fsignaling-nans -fopenmp.
+
+   This problem will use 3 of 4 possible threads.
+
+
+  INPUT --- proc title ;
+
+     CPU Time in seconds for last procedure was 0.00
+
+
+  INPUT --- proc chmatrix occasions= 15 groups= 2 etype= Known icovar = 
+  INPUT --- 1 ICMeans NoHist hist=  123 ;
+
+  INPUT ---    time interval 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 ;
+
+  INPUT ---     icovariates weight ;
+
+  INPUT ---    glabel(1)=sexF;
+
+  INPUT ---    glabel(2)=sexM;
+
+      Number of unique encounter histories read was 123.
+
+      Number of individual covariates read was 1.
+      Time interval lengths are all equal to 1.
+
+      Data type number is 4
+      Data type is Known Fate                                                                                          
+
+     CPU Time in seconds for last procedure was 0.02
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(Win64) Vers. 8.2 Sep 2017    6-Nov-2017 21:02:21    Page  002
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+
+
+  INPUT --- proc estimate link=Logit NOLOOP varest=2ndPart    ;
+
+
+  INPUT --- model={ S(~sex + weight) };
+
+  INPUT ---    group=1 S    rows=1 cols=15 Square ;
+  INPUT ---        1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 ;
+
+  INPUT ---    group=2 S    rows=1 cols=15 Square ;
+  INPUT ---        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 ;
+
+  INPUT ---    design matrix constraints=2 covariates=3;
+  INPUT ---        1 0 weight;
+  INPUT ---        1 1 weight;
+  INPUT ---       blabel(1)=S:(Intercept);
+  INPUT ---       blabel(2)=S:sexM;
+  INPUT ---       blabel(3)=S:weight;
+  INPUT ---       rlabel(1)=S gF a1 t2;
+  INPUT ---       rlabel(2)=S gM a1 t2;
+
+ Link Function Used is LOGIT        
+
+ Variance Estimation Procedure Used is 2ndPart 
+ -2logL(saturated) = -0.0000000    
+ Effective Sample Size = 278
+
+ Number of function evaluations was 26 for 3 parameters.
+ Time for numerical optimization was 0.01 seconds.
+ -2logL { S(~sex + weight) } = 91.130346     
+ Penalty { S(~sex + weight) } = -0.0000000    
+ Gradient { S(~sex + weight) }:
+   0.000000     0.3973183E-05 0.3170399E-06
+ S Vector { S(~sex + weight) }:
+   19.45912      2.192099     0.1993171E-01
+ Time to compute number of parameters was 0.01 seconds.
+   Threshold =  0.8000000E-07     Condition index =  0.1024287E-02     New Threshold =  0.3452274E-01
+ New Guessimate of Estimated Parameters { S(~sex + weight) } = 2          
+ Conditioned S Vector { S(~sex + weight) }:
+   1.000000     0.1126515     0.1024287E-02
+ Number of Estimated Parameters { S(~sex + weight) } = 3          
+ DEVIANCE { S(~sex + weight) } = 91.130346                     
+ DEVIANCE Degrees of Freedom { S(~sex + weight) } = 125            
+ c-hat { S(~sex + weight) } = 0.7290428                     
+ AIC { S(~sex + weight) } = 97.130346                  
+ AICc { S(~sex + weight) } = 97.217937                    
+ BIC { S(~sex + weight) } = 108.01321                    
+ Pearson Chisquare { S(~sex + weight) } = 383.07258                  
+
+
+                     LOGIT Link Function Parameters of { S(~sex + weight) }
+                                                              95% Confidence Interval
+ Parameter                    Beta         Standard Error      Lower           Upper
+ -------------------------  --------------  --------------  --------------  --------------
+    1:S:(Intercept)         -0.6573842      4.5999282       -9.6732435      8.3584752     
+    2:S:sexM                2.2190233       1.0583849       0.1445889       4.2934577     
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(Win64) Vers. 8.2 Sep 2017    6-Nov-2017 21:02:21    Page  003
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+    3:S:weight              0.0161220       0.0246718       -0.0322347      0.0644787     
+
+
+                     Real Function Parameters of { S(~sex + weight) }
+
+      Following estimates based on unstandardized individual covariate values:
+          Variable   Value         
+          ---------  ------------- 
+          WEIGHT     169.60156     
+                                                               95% Confidence Interval
+  Parameter                  Estimate       Standard Error      Lower           Upper
+ --------------------------  --------------  --------------  --------------  --------------
+     1:S gF a1 t2            0.8886410       0.0527236       0.7374335       0.9577587                           
+     2:S gM a1 t2            0.9865596       0.0094410       0.9478675       0.9966368                           
+
+
+                     Estimates of Derived Parameters
+
+               Survival Estimates of { S(~sex + weight) }
+
+       Pr. Surviving
+        Duration of                   95% Confidence Interval
+ Group     Study      Standard Error     Lower          Upper     
+ ----- -------------- -------------- -------------- --------------
+   1   0.1701748      0.1514491      0.0244487      0.6265981     
+   2   0.8163000      0.1171757      0.4899803      0.9536042     
+
+     CPU Time in seconds for last procedure was 0.00
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(Win64) Vers. 8.2 Sep 2017    6-Nov-2017 21:02:21    Page  004
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+
+
+  INPUT --- proc stop;
+
+     CPU Time in minutes for this job was 0.00
+
+     Time Start = 21:02:21.426   Time End = 21:02:21.446
+
+     Wall Clock Time in minutes for this job was 0.00
+
+
+          E X E C U T I O N   S U C C E S S F U L 

@@ -12,7 +12,7 @@ library(plyr)
 library(xtable)
 library(sp)
 library(geosphere)
-y = read.csv("C:/Users/Elisa/Documents/Woodcock/Data/MCP_area_2.csv")
+y = read.csv("C:/Users/Lisa/Documents/Woodcock/Data/MCP_area_2.csv")
 
 #head(y)
 #is.recursive(y)
@@ -33,7 +33,7 @@ df$Area_ha = as.numeric(paste(df$Area))
 
 df$Area_m = df$Area*1000
 
-df[,4:5] <- round(df[,4:5], 2)
+df[,5:6] <- round(df[,5:6], 2)
 
 df
 
@@ -51,7 +51,7 @@ Table i. Means of vegetation measurements by within MCP and within Buffer.  Dens
 ##, results='asis'
 library(plyr)
 
-setwd("C:/Users/Elisa/Documents/Woodcock/R_Woodcock/Veg_csv/")
+setwd("C:/Users/Lisa/Documents/Woodcock/R_Woodcock/Veg_csv/")
 
 veg_files = Sys.glob("*.csv")
 

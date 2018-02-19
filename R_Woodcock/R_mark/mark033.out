@@ -1,0 +1,158 @@
+
+   Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(Win64) Vers. 8.2 Sep 2017    7-Nov-2017 08:39:55    Page  001
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+   This version was compiled by GCC version 5.3.0 using the options: 
+     -cpp -iprefix c:\tdm-gcc-64\gcc\bin\../lib/gcc/x86_64-w64-mingw32/5.3.0/ -D_MT
+     -U_REENTRANT -D IEEE -m64 -mtune=generic -march=x86-64 -mthreads -O2
+     -fimplicit-none -fbounds-check -funroll-loops -ftree-vectorize
+     -ffpe-summary=invalid,zero,overflow,underflow -fno-unsafe-math-optimizations
+     -frounding-math -fsignaling-nans -fopenmp.
+
+   This problem will use 3 of 4 possible threads.
+
+
+  INPUT --- proc title ;
+
+     CPU Time in seconds for last procedure was 0.00
+
+
+  INPUT --- proc chmatrix occasions= 15 groups= 2 etype= Known icovar = 
+  INPUT --- 1 ICMeans NoHist hist= 21  ;
+
+  INPUT ---    time interval 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 ;
+
+  INPUT ---     icovariates Tag ;
+
+  INPUT ---    glabel(1)=sexF;
+
+  INPUT ---    glabel(2)=sexM;
+
+      Number of unique encounter histories read was 21.
+
+      Number of individual covariates read was 1.
+      Time interval lengths are all equal to 1.
+
+      Data type number is 4
+      Data type is Known Fate                                                                                          
+
+     CPU Time in seconds for last procedure was 0.00
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(Win64) Vers. 8.2 Sep 2017    7-Nov-2017 08:39:55    Page  002
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+
+
+  INPUT --- proc estimate link=Logit NOLOOP varest=2ndPart    ;
+
+
+  INPUT --- model={ S(~Tag) };
+
+  INPUT ---    group=1 S    rows=1 cols=15 Square ;
+  INPUT ---        1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 ;
+
+  INPUT ---    group=2 S    rows=1 cols=15 Square ;
+  INPUT ---        1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 ;
+
+  INPUT ---    design matrix constraints=1 covariates=2;
+  INPUT ---        1 Tag;
+  INPUT ---       blabel(1)=S:(Intercept);
+  INPUT ---       blabel(2)=S:Tag;
+  INPUT ---       rlabel(1)=S gF a1 t2;
+
+ Link Function Used is LOGIT        
+
+ Variance Estimation Procedure Used is 2ndPart 
+ -2logL(saturated) = -0.0000000    
+ Effective Sample Size = 65
+
+   * *  WARNING  * *   Error number 0 from VA09AD optimization routine. 
+
+ Number of function evaluations was 32 for 2 parameters.
+ Time for numerical optimization was 0.01 seconds.
+ -2logL { S(~Tag) } = 0.3192162E-007
+ Penalty { S(~Tag) } = -0.0000000    
+ Gradient { S(~Tag) }:
+   0.000000      0.000000    
+ S Vector { S(~Tag) }:
+  0.5153234E-06 0.1411216E-07
+ Time to compute number of parameters was 0.01 seconds.
+   Threshold =  0.6000000E-07     Condition index =  0.2738506E-01     New Threshold =  0.1995761E-07
+ New Guessimate of Estimated Parameters { S(~Tag) } = 2          
+ Conditioned S Vector { S(~Tag) }:
+   1.000000     0.2738506E-01
+ Number of Estimated Parameters { S(~Tag) } = 2          
+ DEVIANCE { S(~Tag) } = 0.3192162E-007                
+ DEVIANCE Degrees of Freedom { S(~Tag) } = 26            
+ c-hat { S(~Tag) } = 0.1227755E-008                
+ AIC { S(~Tag) } = 4.0000000                  
+ AICc { S(~Tag) } = 4.1935484                    
+ BIC { S(~Tag) } = 8.3487746                    
+ Pearson Chisquare { S(~Tag) } = 21.000000                  
+
+
+                         LOGIT Link Function Parameters of { S(~Tag) }
+                                                              95% Confidence Interval
+ Parameter                    Beta         Standard Error      Lower           Upper
+ -------------------------  --------------  --------------  --------------  --------------
+    1:S:(Intercept)         22.222496       8416.2935       -16473.713      16518.158     
+    2:S:Tag                 -0.2224147      0.0000000       -0.2224147      -0.2224147    
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(Win64) Vers. 8.2 Sep 2017    7-Nov-2017 08:39:55    Page  003
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+
+
+                         Real Function Parameters of { S(~Tag) }
+
+      Following estimates based on unstandardized individual covariate values:
+          Variable   Value         
+          ---------  ------------- 
+          TAG        0.3928571     
+                                                               95% Confidence Interval
+  Parameter                  Estimate       Standard Error      Lower           Upper
+ --------------------------  --------------  --------------  --------------  --------------
+     1:S gF a1 t2            1.0000000       0.2062574E-005  0.9999960       1.0000040                           
+
+
+                     Estimates of Derived Parameters
+
+                   Survival Estimates of { S(~Tag) }
+
+       Pr. Surviving
+        Duration of                   95% Confidence Interval
+ Group     Study      Standard Error     Lower          Upper     
+ ----- -------------- -------------- -------------- --------------
+   1   1.0000000      0.3093931E-004 0.2697313E-295 1.0000000     
+   2   1.0000000      0.3093931E-004 0.2697313E-295 1.0000000     
+
+     CPU Time in seconds for last procedure was 0.00
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(Win64) Vers. 8.2 Sep 2017    7-Nov-2017 08:39:55    Page  004
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+
+
+  INPUT --- proc stop;
+
+   * *  WARNING  * *   Numerical underflow occurred during final processing of this model. 
+     IEEE flag status at final processing of this model:
+     overflow       F
+     divide by zero F
+     invalid        F
+     underflow      T
+     inexact        T
+
+
+     CPU Time in minutes for this job was 0.00
+
+     Time Start = 08:39:55.167   Time End = 08:39:55.175
+
+     Wall Clock Time in minutes for this job was 0.00
+
+
+          E X E C U T I O N   S U C C E S S F U L 

@@ -1,15 +1,16 @@
 library("Kmisc")
 library(RMark)
 
+#.libPaths()
 ##formatting files for RMark
 
 
-#setwd("C:/Users/Elisa/Documents/Woodcock/Thesis/Survival")
+#setwd("C:/Users/Lisa/Documents/Woodcock/Thesis/Survival")
 #list.files()
 
 ##choose all_seasons_ch_covars.csv
 #df = read.csv(file.choose(), header=TRUE)
-df = read.csv("C:/Users/Elisa/Documents/Woodcock/Thesis/Survival/all_seasons_ch_covars.csv")
+df = read.csv("C:/Users/Lisa/Documents/Woodcock/Thesis/Survival/all_seasons_ch_covars.csv")
 df2 = df[,c(1, 17:24)]
 df = df[,2:(ncol(df)-8)]
 
@@ -56,6 +57,7 @@ woodcock[106,]
 x=woodcock[which(woodcock$sex== "M"),]
 y=woodcock[which(woodcock$sex=="F"),]
 
+##average weight for males and females
 mal = as.integer(mean(x$weight, na.rm=TRUE))
 fem = as.integer(mean(y$weight, na.rm=TRUE))
 

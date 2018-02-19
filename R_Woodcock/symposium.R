@@ -1,5 +1,6 @@
 library(plyr)
 library(dplyr)
+library(rgdal)
 ###################################################################################
 ###################################################################################
 ###Selecting random points
@@ -130,8 +131,8 @@ cf$dt = as.POSIXct(cf$dt)
 ##take each random point for each bird/day
 ##get a random direction and a specified distance
 
-##distance from point in m
-d = 15
+##distances from point in m
+d=15
 
 ##storage vector
 samp_pts = c()
@@ -170,3 +171,69 @@ colnames(samp_pts) <- c("Location_Latitude", "Location_Longitude",
 write.csv(samp_pts, file=paste("C:/Users/Elisa/Documents/Woodcock/Thesis/", d,
                                "m_samppts_2.csv",sep=""))
 
+
+
+
+#################################################################
+##random sample point
+#################################################################
+##distances from point in m
+d=c(10,20,30,45,60, 75, 100)
+
+for(j in 1:length(d)){
+
+setwd("C:/Users/Elisa/Documents/Woodcock/Thesis/sym")
+
+##read in and combine files if new session
+files = Sys.glob("*.csv")
+cf=ldply(files, read.csv)
+
+##format df; dt should be POSIXct, lat/long should be numeric
+cf$dt = as.POSIXct(cf$dt)
+
+##take each random point for each bird/day
+##get a random direction and a specified distance
+
+##storage vector
+samp_pts = c()
+
+for (i in 1:nrow(cf)){
+  ##select random direction
+  theta = sample(0:360, 1)
+  
+  ##current random point
+  lat = cf$Latitude[i]
+  long = cf$Longitude[i]
+  
+  ##get from d in m to degrees
+  dx = d[j]*sin(theta)  
+  dy = d[j]*cos(theta)  
+  
+  delta_longitude = dx/(111320*cos(lat))  # dx, dy in meters
+  delta_latitude = dy/110540        
+  
+  ##sampling point values
+  new_lat = cf$Latitude[i]+delta_latitude
+  new_long = cf$Longitude[i]+delta_longitude
+  
+  ##store info
+  samp_pts = rbind(samp_pts, c(lat, long, new_lat, new_long))
+
+}
+
+
+
+samp_pts = as.data.frame(samp_pts)
+colnames(samp_pts) <- c("Location_Latitude", "Location_Longitude",
+                        "Sample_Latitude", "Sample_Longitude")
+##store paired points
+write.csv(samp_pts, file=paste("C:/Users/Elisa/Documents/Woodcock/Data/GIS",
+                               d[j],"m_samppts_3.csv",sep=""))
+
+##shape file of random points only
+coordinates(samp_pts)=c("Sample_Longitude", "Sample_Latitude")
+proj4string(samp_pts)<-CRS('+proj=longlat +datum=WGS84')
+
+writeOGR(samp_pts, "C:/Users/Elisa/Documents/Woodcock/ArcGIS/Symposium/Sample10",
+         layer=(paste(d[j], "m_random_pts", sep="")), driver="ESRI Shapefile")
+}

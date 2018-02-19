@@ -1,10 +1,11 @@
 library("Kmisc")
 library(RMark)
 
+
 ##formatting files for RMark
 
 
-setwd("C:/Users/Elisa/Documents/Woodcock/Thesis/Survival")
+setwd("C:/Users/Lisa/Documents/Woodcock_Git/R_Woodcock/R_mark")
 list.files()
 
 df = read.csv("all_seasons_ch_covars.csv", header=TRUE)
